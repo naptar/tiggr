@@ -10,11 +10,14 @@ import { HttpService, JobService, Logger, MasterApiService } from './services/in
 import { MathUtils, ShardUtils } from './utils/index.js';
 
 const require = createRequire(import.meta.url);
+
+require("dotenv").config("../.env");
+
 let Config = require('../config/config.json');
 let Debug = require('../config/debug.json');
 let Logs = require('../lang/logs.json');
 
-async function start(): Promise<void> {
+async function start(): Promise<void> { 
     Logger.info(Logs.info.appStarted);
 
     // Dependencies
@@ -23,6 +26,8 @@ async function start(): Promise<void> {
     if (Config.clustering.enabled) {
         await masterApiService.register();
     }
+
+    Config.client.token = process.env.CLIENT_TOKEN;
 
     // Sharding
     let shardList: number[];

@@ -34,6 +34,9 @@ import {
 import { Trigger } from './triggers/index.js';
 
 const require = createRequire(import.meta.url);
+
+require("dotenv").config("../.env");
+
 let Config = require('../config/config.json');
 let Logs = require('../lang/logs.json');
 
